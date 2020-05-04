@@ -1,0 +1,59 @@
+---
+to: package.json
+---
+{
+  "name": "<%- name %>",
+  "version": "0.1.0",
+  "description": "<%- description %>",
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build",
+    "release": "npm test && lerna publish",
+    "prettier:cli": "prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- --check",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "tslint": "tslint -p tsconfig.json -c tslint.json",
+    "tslint:fix": "npm run tslint -- --fix",
+    "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "pretest": "npm run build",
+    "test": "jest"
+  },
+  "author": "<%- author %>",
+  "license": "<%- license %>",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.4",
+    "coveralls": "^3.0.11",
+    "jest": "^25.4.0",
+    "lerna": "^3.20.2",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.4.0",
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "packages/.*/src/__tests__/.*\\.test\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}

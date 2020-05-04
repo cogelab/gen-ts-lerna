@@ -1,0 +1,28 @@
+---
+to: lerna.json
+---
+{
+  "lerna": "2.11.0",
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "bootstrap": {
+      "ci": false
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "message": "chore: publish release"
+    },
+    "run": {
+      "prefix": false,
+      "loglevel": "silent"
+    },
+    "clean": {
+      "loglevel": "silent",
+      "concurrency": 8,
+      "yes": true
+    }
+  },
+  "version": "independent"
+}
