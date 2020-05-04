@@ -12,6 +12,12 @@ const path = require("path");
 const gitRemoteOriginUrl = require("git-remote-origin-url");
 const coge_generator_1 = require("coge-generator");
 const folder = path.basename(process.cwd()).replace(/[\/@\s\+%:\.]+?/g, '-');
+// function guessRepositoryName() {
+//   if (fs.existsSync('./package.json')) {
+//     return require('./package').name;
+//   }
+//   return folder;
+// }
 class GitTemplate extends coge_generator_1.Template {
     constructor(opts) {
         super(opts);
@@ -23,6 +29,7 @@ class GitTemplate extends coge_generator_1.Template {
                 this._originUrl = yield gitRemoteOriginUrl(this._cwd);
             }
             catch (e) {
+                // no-op
             }
             if (this._originUrl) {
                 this.log('Current project is already git repository. Skipped.');
@@ -81,6 +88,7 @@ class GitTemplate extends coge_generator_1.Template {
                 originUrl = yield gitRemoteOriginUrl(this._cwd);
             }
             catch (e) {
+                // no-op
             }
             const repository = originUrl || `${this._locals.account}/${this._locals.repositoryName}`;
             const pkg = this._readPkg();
@@ -104,3 +112,4 @@ class GitTemplate extends coge_generator_1.Template {
     }
 }
 module.exports = GitTemplate;
+//# sourceMappingURL=index.js.map

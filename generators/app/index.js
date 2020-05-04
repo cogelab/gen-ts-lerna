@@ -80,6 +80,7 @@ class AppTemplate extends coge_generator_1.Template {
     filter(files, locals) {
         return __awaiter(this, void 0, void 0, function* () {
             const license = locals.license || 'MIT';
+            //               | +ALL | -../licenses/..                   | +../licenses/<license>.txt.ejs         |
             return mm(files, ['**', `!**/licenses${path.sep}*.*`, `**/licenses${path.sep}${license}.*`], {});
         });
     }
@@ -90,3 +91,4 @@ class AppTemplate extends coge_generator_1.Template {
     }
 }
 module.exports = AppTemplate;
+//# sourceMappingURL=index.js.map

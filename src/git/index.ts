@@ -17,7 +17,7 @@ class GitTemplate extends Template {
   _pkg?: Record<string, any>;
   _originUrl?: string;
 
-  constructor(opts) {
+  constructor(opts: any) {
     super(opts);
     this._cwd = opts.cwd || process.cwd();
   }

@@ -1,6 +1,5 @@
 import * as path from "path";
 import * as mm from "micromatch";
-import * as chalk from "chalk";
 import {Template} from "coge-generator";
 import {InstallOptions} from "coge-generator/lib/mixins/install";
 
