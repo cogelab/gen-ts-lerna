@@ -22,7 +22,6 @@ Create a package to packages
 ### Templates
 
 - `ts-lerna:app` generate the boilerplate.
-- `ts-lerna:git` git init and add repository origin url
 - `ts-lerna:package` create a package to packages
 
 ## Licence
