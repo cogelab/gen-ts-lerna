@@ -1,7 +1,8 @@
-import * as path from "path";
-import * as mm from "micromatch";
-import {Template} from "coge-generator";
-import {InstallOptions} from "coge-generator/lib/mixins/install";
+import path from 'path';
+import mm from 'micromatch';
+import {Template, InstallOptions} from 'coge-generator';
+
+const parseNpmName = require('parse-packagejson-name');
 
 const licenses = [
   {name: 'Apache 2.0', value: 'Apache-2.0'},
@@ -14,7 +15,7 @@ const licenses = [
   {name: 'GNU GPL 3.0', value: 'GPL-3.0'},
   {name: 'GNU LGPL 3.0', value: 'LGPL-3.0'},
   {name: 'Unlicense', value: 'unlicense'},
-  {name: 'No License (Copyrighted)', value: 'UNLICENSED'}
+  {name: 'No License (Copyrighted)', value: 'UNLICENSED'},
 ];
 
 const pkg = require('../../package');
@@ -22,41 +23,53 @@ const pkg = require('../../package');
 class PackageTemplate extends Template {
   _pkg?: Record<string, any>;
 
-  constructor(opts) {
-    super(opts);
-  }
-
   async init() {
     this._pkg = this.fs.readJsonSync('./package.json', {throws: false});
   }
 
   async questions() {
-    return [{
-      type: "input",
-      name: "name",
-      message: "Name of the package",
-    }, {
-      type: "input",
-      name: "description",
-      message: "Description of the package",
-    }, {
-      type: "list",
-      name: "license",
-      message: "Which license do you want to use?",
-      choices: licenses,
-      default: 'MIT'
-    }];
+    return [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Name of the package',
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'Description of the package',
+      },
+      {
+        type: 'list',
+        name: 'license',
+        message: 'Which license do you want to use?',
+        choices: licenses,
+        default: 'MIT',
+      },
+    ];
   }
 
-  async locals(locals) {
+  async locals(locals: Record<string, any>) {
+    const parsed = parseNpmName(locals.name);
+    locals.scope = parsed.scope;
+    locals.projectName = parsed.fullName;
+    locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
     locals.author = pkg.author || '';
     return locals;
   }
 
-  async filter(files, locals) {
+  async filter(files: string[], locals: Record<string, any>) {
     const license = locals.license || 'MIT';
     //               | +ALL | -../licenses/..                   | +../licenses/<license>.txt.ejs         |
-    return mm(files, ['**', `!**/licenses${path.sep}*.*`, `**/licenses${path.sep}${license}.*`], {});
+    return mm(
+      files,
+      [
+        '**',
+        `!**/licenses${path.sep}*.*`,
+        `**/licenses${path.sep}${license}.*`,
+      ],
+      {},
+    );
   }
 
   async install(opts?: InstallOptions) {
@@ -65,4 +78,3 @@ class PackageTemplate extends Template {
 }
 
 export = PackageTemplate;
-

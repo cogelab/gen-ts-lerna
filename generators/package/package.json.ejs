@@ -1,5 +1,5 @@
 ---
-to: packages/<%- name %>/package.json
+to: <%- drd || 'packages' %>/<%- projectName %>/package.json
 ---
 {
   "name": "<%- name %>",
@@ -7,44 +7,34 @@ to: packages/<%- name %>/package.json
   "version": "0.1.0",
   "keywords": [
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=10"
+    "node": ">=10.16"
   },
   "author": "<%- author %> ",
   "license": "<%- license %> ",
-  "main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
   "scripts": {
-    "clean": "rimraf lib",
-    "build": "npm run clean && tsc -p tsconfig.json --outdir lib",
-    "prepublishOnly": "npm run build",
+    "acceptance": "al-mocha \"dist/__tests__/acceptance/**/*.js\"",
+    "build": "al-tsc",
+    "clean": "al-clean <%-archiveName%>*.tgz dist *.tsbuildinfo package",
     "pretest": "npm run build",
-    "test": "jest"
+    "test": "al-mocha \"dist/__tests__/**/*.js\"",
+    "unit": "al-mocha \"dist/__tests__/unit/**/*.js\"",
+    "verify": "npm pack && tar xf <%-archiveName%>*.tgz && tree package && npm run clean"
   },
   "dependencies": {
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.13.4",
-    "jest": "^25.4.0",
-    "prettier": "^2.0.5",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^25.4.0",
-    "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "@artlab/build": "^6.2.3",
+    "@artlab/eslint-config": "^8.1.3",
+    "@artlab/testlab": "^3.3.3",
+    "@types/node": "^14.0.20"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "src/__tests__/.*\\.test\\.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
-  }
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ]
 }

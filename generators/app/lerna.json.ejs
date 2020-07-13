@@ -2,21 +2,26 @@
 to: lerna.json
 ---
 {
-  "lerna": "2.11.0",
   "packages": [
+    "examples/*",
     "packages/*"
   ],
   "command": {
     "bootstrap": {
-      "ci": false
+      "concurrency": 4,
+      "forceLocal": true
     },
-    "publish": {
+    "version": {
       "conventionalCommits": true,
       "message": "chore: publish release"
     },
+    "publish": {},
     "run": {
       "prefix": false,
-      "loglevel": "silent"
+      "loglevel": "silent",
+      "stream": true,
+      "concurrency": 8,
+      "sort": false
     },
     "clean": {
       "loglevel": "silent",

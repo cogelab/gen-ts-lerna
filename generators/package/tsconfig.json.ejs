@@ -1,8 +1,15 @@
 ---
-to: packages/<%- name %>/tsconfig.json
+to: <%- drd || 'packages' %>/<%- projectName %>/tsconfig.json
 ---
 {
   "$schema": "http://json.schemastore.org/tsconfig",
-  "extends": "../../tsconfig.json",
-  "include": ["src"]
+  "extends": "@artlab/build/config/tsconfig.common.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true
+  },
+  "include": [
+    "src"
+  ]
 }

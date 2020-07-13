@@ -1,6 +1,3 @@
----
-to: .prettierrc
----
 {
   "bracketSpacing": false,
   "singleQuote": true,
