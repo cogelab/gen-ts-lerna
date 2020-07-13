@@ -47,7 +47,9 @@ class PackageTemplate extends coge_generator_1.Template {
         const parsed = parseNpmName(locals.name);
         locals.scope = parsed.scope;
         locals.projectName = parsed.fullName;
-        locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
+        locals.archiveName = parsed.scope
+            ? `${parsed.scope}-${parsed.fullName}`
+            : parsed.fullName;
         locals.author = pkg.author || '';
         return locals;
     }

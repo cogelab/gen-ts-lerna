@@ -75,7 +75,7 @@ class AppTemplate extends Template {
     return locals;
   }
 
-  async filter(files: string[], locals: { license: string; }) {
+  async filter(files: string[], locals: {license: string}) {
     const license = locals.license || 'MIT';
     //               | +ALL | -../licenses/..                   | +../licenses/<license>.txt.ejs         |
     return mm(
