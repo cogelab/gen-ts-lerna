@@ -26,4 +26,4 @@ Create a package to packages
 
 ## Licence
 
-MIT &copy; [ty](towyuan@outlook.com)
+MIT
