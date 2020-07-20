@@ -1,6 +1,6 @@
 import path from 'path';
 import mm from 'micromatch';
-import {Template, InstallOptions} from 'coge-generator';
+import {InstallOptions, Template} from 'coge-generator';
 
 const parseNpmName = require('parse-packagejson-name');
 
@@ -17,8 +17,6 @@ const licenses = [
   {name: 'Unlicense', value: 'unlicense'},
   {name: 'No License (Copyrighted)', value: 'UNLICENSED'},
 ];
-
-const pkg = require('../../package');
 
 class PackageTemplate extends Template {
   _pkg?: Record<string, any>;
@@ -56,20 +54,14 @@ class PackageTemplate extends Template {
     locals.archiveName = parsed.scope
       ? `${parsed.scope}-${parsed.fullName}`
       : parsed.fullName;
-    locals.author = pkg.author || '';
+    locals.author = this._pkg?.author || '';
     return locals;
   }
 
   async filter(files: string[], locals: Record<string, any>) {
     const license = locals.license || 'MIT';
-    //               | +ALL | -../licenses/..                   | +../licenses/<license>.txt.ejs         |
-    return mm(
-      files,
-      [
-        '**',
-        `!**/licenses${path.sep}*.*`,
-        `**/licenses${path.sep}${license}.*`,
-      ],
+    //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
+    return mm(files, ['**', `!**/licenses${path.sep}*.*`, `**/licenses${path.sep}${license}.*`,],
       {},
     );
   }

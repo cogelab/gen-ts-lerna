@@ -17,7 +17,6 @@ const licenses = [
     { name: 'Unlicense', value: 'unlicense' },
     { name: 'No License (Copyrighted)', value: 'UNLICENSED' },
 ];
-const pkg = require('../../package');
 class PackageTemplate extends coge_generator_1.Template {
     async init() {
         this._pkg = this.fs.readJsonSync('./package.json', { throws: false });
@@ -44,23 +43,20 @@ class PackageTemplate extends coge_generator_1.Template {
         ];
     }
     async locals(locals) {
+        var _a;
         const parsed = parseNpmName(locals.name);
         locals.scope = parsed.scope;
         locals.projectName = parsed.fullName;
         locals.archiveName = parsed.scope
             ? `${parsed.scope}-${parsed.fullName}`
             : parsed.fullName;
-        locals.author = pkg.author || '';
+        locals.author = ((_a = this._pkg) === null || _a === void 0 ? void 0 : _a.author) || '';
         return locals;
     }
     async filter(files, locals) {
         const license = locals.license || 'MIT';
-        //               | +ALL | -../licenses/..                   | +../licenses/<license>.txt.ejs         |
-        return micromatch_1.default(files, [
-            '**',
-            `!**/licenses${path_1.default.sep}*.*`,
-            `**/licenses${path_1.default.sep}${license}.*`,
-        ], {});
+        //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
+        return micromatch_1.default(files, ['**', `!**/licenses${path_1.default.sep}*.*`, `**/licenses${path_1.default.sep}${license}.*`,], {});
     }
     async install(opts) {
         return this.installDependencies(opts);
