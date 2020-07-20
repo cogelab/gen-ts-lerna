@@ -62,7 +62,7 @@ class AppTemplate extends Template {
         name: 'license',
         message: 'Which license do you want to use?',
         choices: licenses,
-        default: 'MIT',
+        default: this._pkg?.license ? this._pkg.license : 'MIT',
       },
     ];
   }
