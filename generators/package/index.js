@@ -56,7 +56,11 @@ class PackageTemplate extends coge_generator_1.Template {
     async filter(files, locals) {
         const license = locals.license || 'MIT';
         //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
-        return micromatch_1.default(files, ['**', `!**/licenses${path_1.default.sep}*.*`, `**/licenses${path_1.default.sep}${license}.*`,], {});
+        return micromatch_1.default(files, [
+            '**',
+            `!**/licenses${path_1.default.sep}*.*`,
+            `**/licenses${path_1.default.sep}${license}.*`,
+        ], {});
     }
     async install(opts) {
         return this.installDependencies(opts);

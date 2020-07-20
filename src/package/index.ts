@@ -61,7 +61,13 @@ class PackageTemplate extends Template {
   async filter(files: string[], locals: Record<string, any>) {
     const license = locals.license || 'MIT';
     //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
-    return mm(files, ['**', `!**/licenses${path.sep}*.*`, `**/licenses${path.sep}${license}.*`,],
+    return mm(
+      files,
+      [
+        '**',
+        `!**/licenses${path.sep}*.*`,
+        `**/licenses${path.sep}${license}.*`,
+      ],
       {},
     );
   }
