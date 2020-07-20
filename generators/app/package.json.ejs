@@ -5,7 +5,6 @@ to: package.json
   "name": "<%- name %>",
   "version": "0.1.0",
   "description": "<%- description %>",
-  "version": "0.1.0",
   "engines": {
     "node": ">=10.16"
   },
@@ -48,8 +47,6 @@ to: package.json
     "mocha": "al-mocha --lang en_US.UTF-8 \"packages/*/dist/__tests__/**/*.js\" \"examples/*/dist/__tests__/**/*.js\"",
     "posttest": "npm run lint"
   },
-  "author": "<%- author %>",
-  "license": "<%- license %>",
   "dependencies": {
   },
   "devDependencies": {
@@ -57,16 +54,16 @@ to: package.json
     "@artlab/build": "^6.2.3",
     "@artlab/eslint-config": "^8.1.3",
     "@artlab/testlab": "^3.3.3",
-    "@commitlint/cli": "^9.0.1",
-    "@commitlint/config-conventional": "^9.0.1",
-    "@commitlint/travis-cli": "^9.0.1",
-    "@types/mocha": "^7.0.2",
-    "@typescript-eslint/eslint-plugin": "^3.5.0",
-    "@typescript-eslint/parser": "^3.5.0",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@commitlint/travis-cli": "^9.1.1",
+    "@types/mocha": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.2.0",
-    "eslint": "^7.3.1",
+    "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-eslint-plugin": "^2.3.0",
     "eslint-plugin-mocha": "^7.0.1",
@@ -75,7 +72,7 @@ to: package.json
     "lerna": "^3.22.1",
     "markdown-table": "^2.0.0",
     "open-cli": "^6.0.1",
-    "typescript": "~3.9.6"
+    "typescript": "^3.9.7"
   },
   "config": {
     "commitizen": {
