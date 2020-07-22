@@ -90,13 +90,10 @@ class AppTemplate extends Template {
   }
 
   async install(opts?: InstallOptions) {
-    return this.installDependencies(opts);
-  }
-
-  async end() {
     await this.spawn('git', ['init', '--quiet'], {
       cwd: this._cwd,
     });
+    await this.installDependencies(opts);
   }
 }
 

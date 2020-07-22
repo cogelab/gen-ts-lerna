@@ -63,7 +63,10 @@ class PackageTemplate extends coge_generator_1.Template {
         ], {});
     }
     async install(opts) {
-        return this.installDependencies(opts);
+        await this.spawn('git', ['init', '--quiet'], {
+            cwd: this._cwd,
+        });
+        await this.installDependencies(opts);
     }
 }
 module.exports = PackageTemplate;
